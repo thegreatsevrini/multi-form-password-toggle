@@ -10,44 +10,26 @@ if (!Element.prototype.matches) {
 }
 /* End Polyfill*/
 
-//assigns password field to a variable
-var password = document.querySelector('#password');
-//assigns first checkbox to a variable
-var toggle = document.querySelector('#show-password');
+//listens for all click events in browser
+document.addEventListener('click', function(event) {
 
-//assigns new and current password fields to variable
-var newPassword = document.querySelector('#new-password');
-var currentPassword = document.querySelector('#current-password');
-//assigns second checkbox to a variable
-var toggleMulti = document.querySelector('#show-passwords');
+    //check to see if clicked item was a pw-toggle
+    //stop callback function if it is not
+    if(!event.target.matches('[data-pw-toggle]')) return; 
+        //check target pw fields
+        var passwords = Array.prototype.slice.call(document.querySelectorAll(event.target.getAttribute('data-pw-toggle')));
 
-
-
-window.addEventListener('click', function(event) {
-    //if click matches first toggle checkbox
-    if(event.target.matches('#show-password')) {
-        //check to see if toggle is checked.
-        //if it is, set the type attribute of password to text
-        //otherwise
-        //set the type attribute of password to password
-        if (toggle.checked) {
-            password.setAttribute('type', 'text');
-        } else {
-            password.setAttribute('type', 'password')
-        }
-    } 
-
-    if(event.target.matches('#show-passwords')) {
-        if (toggleMulti.checked) {
-            newPassword.setAttribute('type', 'text');
-            currentPassword.setAttribute('type', 'text');
-        } else {
-            newPassword.setAttribute('type', 'password');
-            currentPassword.setAttribute('type', 'password');
-        }
-    }
-    
-}, false);
+        //Loop thru each pw field
+        passwords.forEach(function (password) {
+            //if toogle is checked, change type to 'text'
+            //otherwise, change it to 'password'
+            if(event.target.checked) {
+                password.type = 'text';
+            } else {
+                password.type = 'password';
+            }
+        });
+},false);
 
 
 
