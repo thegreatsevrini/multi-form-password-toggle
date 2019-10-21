@@ -10,23 +10,44 @@ if (!Element.prototype.matches) {
 }
 /* End Polyfill*/
 
-//changes password input fields on page with type = "password" from a node list to an array
-var passwords = Array.prototype.slice.call(document.querySelectorAll('[type = "password"]'));
-var toggleCheckbox = document.querySelector('#show-password');
-//Listens for clicks on whole window
-window.addEventListener('click', function ( event ) {
+//assigns password field to a variable
+var password = document.querySelector('#password');
+//assigns first checkbox to a variable
+var toggle = document.querySelector('#show-password');
 
-    //if clicked element has the id show-passwords, it's a match!
-    if (event.target.matches('#show-passwords')) {
-        // if (toggleCheckbox.checked) {
-        //     passwords.forEach(function (password, index) {
-        //         password.type = 'text';
-        //     });
-        // } else {
-        //     passwords.forEach(function (password, index) {
-        //         password.type = 'password';
-        //     });  
-        this.console.log(passwords);
+//assigns new and current password fields to variable
+var newPassword = document.querySelector('#new-password');
+var currentPassword = document.querySelector('#current-password');
+//assigns second checkbox to a variable
+var toggleMulti = document.querySelector('#show-passwords');
+
+
+
+window.addEventListener('click', function(event) {
+    //if click matches first toggle checkbox
+    if(event.target.matches('#show-password')) {
+        //check to see if toggle is checked.
+        //if it is, set the type attribute of password to text
+        //otherwise
+        //set the type attribute of password to password
+        if (toggle.checked) {
+            password.setAttribute('type', 'text');
+        } else {
+            password.setAttribute('type', 'password')
+        }
+    } 
+
+    if(event.target.matches('#show-passwords')) {
+        if (toggleMulti.checked) {
+            newPassword.setAttribute('type', 'text');
+            currentPassword.setAttribute('type', 'text');
+        } else {
+            newPassword.setAttribute('type', 'password');
+            currentPassword.setAttribute('type', 'password');
+        }
     }
+    
 }, false);
+
+
 
